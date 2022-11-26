@@ -1,8 +1,11 @@
-module github.com/tnyidea/react-admin/dataprovider/go
+module github.com/tnyidea/ra-data-json-server/go
 
 go 1.19
 
-require github.com/gin-gonic/gin v1.8.1
+require (
+	github.com/gin-gonic/gin v1.8.1
+	github.com/tnyidea/react-admin/dataprovider/go v0.0.0-20221125183217-1288d59fd8f9
+)
 
 require (
 	github.com/gin-contrib/sse v0.1.0 // indirect
