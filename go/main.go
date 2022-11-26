@@ -8,7 +8,7 @@ import (
 
 func main() {
 	router := gin.Default()
-    router.GET("/v1/address", addressv1.GetList)
+    router.GET("/v1/address", addressv1.GetMany)
 	router.GET("/v1/address/:id", addressv1.GetOne)
 
 	log.Fatal(router.Run("localhost:8080"))
