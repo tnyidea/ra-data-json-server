@@ -2,13 +2,14 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/tnyidea/react-admin/dataprovider/go/service/endpointsv1"
+    "github.com/tnyidea/ra-data-json-server/go/service/addressv1"
 	"log"
 )
 
 func main() {
 	router := gin.Default()
-	router.GET("/v1/address", endpointsv1.GetAllAddresses)
+    router.GET("/v1/address", addressv1.GetList)
+	router.GET("/v1/address/:id", addressv1.GetOne)
 
 	log.Fatal(router.Run("localhost:8080"))
 }
