@@ -6,8 +6,8 @@ import (
 	"net/http"
 )
 
-func (p *Handler) GetOne(c *gin.Context) {
-	// GET http://my.api.url/post/123
+func (p *Handler) Create(c *gin.Context) {
+	// POST http://my.api.url/post
 	var address model.Address
 	c.IndentedJSON(http.StatusOK, address)
 }

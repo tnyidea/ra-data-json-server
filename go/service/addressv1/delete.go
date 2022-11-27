@@ -6,8 +6,8 @@ import (
 	"net/http"
 )
 
-func (p *Handler) GetOne(c *gin.Context) {
-	// GET http://my.api.url/post/123
+func (p *Handler) Delete(c *gin.Context) {
+	// DELETE http://my.api.url/post/123
 	var address model.Address
 	c.IndentedJSON(http.StatusOK, address)
 }
