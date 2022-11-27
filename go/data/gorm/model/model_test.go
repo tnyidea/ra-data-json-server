@@ -16,7 +16,6 @@ var sampleData []byte
 
 func init() {
 	env["POSTGRES_URL"] = os.Getenv("POSTGRES_URL")
-	env["SAMPLE_DATA"] = os.Getenv("SAMPLE_DATA")
 	err := typeutils.MapNoEmptyValues(env)
 	if err != nil {
 		log.Fatal(err)

@@ -15,7 +15,6 @@ var sampleData []byte
 
 func init() {
 	env["MONGODB_URL"] = os.Getenv("MONGODB_URL")
-	env["SAMPLE_DATA"] = os.Getenv("SAMPLE_DATA")
 	err := typeutils.MapNoEmptyValues(env)
 	if err != nil {
 		log.Fatal(err)
