@@ -3,17 +3,18 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/tnyidea/ra-data-json-server/go/service/addressv1"
+	"github.com/tnyidea/typeutils"
 	"log"
 	"os"
 )
 
 func main() {
-	var env map[string]string
+	env := make(map[string]string)
 	env["POSTGRES_URL"] = os.Getenv("POSTGRES_URL")
-	//err := typeutils.MapNoEmptyValues(env)
-	//if err != nil {
-	//	log.Fatal(err)
-	//}
+	err := typeutils.MapNoEmptyValues(env)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	addressv1handler, err := addressv1.NewHandler(env)
 	if err != nil {
