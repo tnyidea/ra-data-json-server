@@ -9,8 +9,9 @@ import (
 )
 
 func main() {
-	env := make(map[string]string)
-	env["POSTGRES_URL"] = os.Getenv("POSTGRES_URL")
+	env := map[string]string{
+		"POSTGRES_URL": os.Getenv("POSTGRES_URL"),
+	}
 	err := typeutils.MapNoEmptyValues(env)
 	if err != nil {
 		log.Fatal(err)

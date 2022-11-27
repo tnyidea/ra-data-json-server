@@ -3,6 +3,7 @@ package addressv1
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/tnyidea/ra-data-json-server/go/data/gorm/model"
+	"log"
 	"net/http"
 )
 
@@ -13,5 +14,12 @@ func (p *Handler) GetMany(c *gin.Context) {
 	// getManyReference GET http://my.api.url/post?author_id=345
 
 	var addresses []model.Address
-	c.IndentedJSON(http.StatusOK, addresses)
+	tx := p.db.Model(&model.Address{}).Find(&addresses)
+	if tx.Error != nil {
+		log.Println(tx.Error)
+		c.AbortWithStatus(http.StatusInternalServerError)
+		return
+	}
+
+	c.JSON(http.StatusOK, addresses)
 }

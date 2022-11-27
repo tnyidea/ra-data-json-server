@@ -8,13 +8,15 @@ import (
 	"testing"
 )
 
-var env = make(map[string]string)
+var env map[string]string
 
 //go:embed us-500.json
 var sampleData []byte
 
 func init() {
-	env["MONGODB_URL"] = os.Getenv("MONGODB_URL")
+	env = map[string]string{
+		"MONGODB_URL": os.Getenv("MONGODB_URL"),
+	}
 	err := typeutils.MapNoEmptyValues(env)
 	if err != nil {
 		log.Fatal(err)

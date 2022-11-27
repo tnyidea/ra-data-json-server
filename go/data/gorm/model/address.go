@@ -6,6 +6,7 @@ import (
 
 type Address struct {
 	gorm.Model
+	ID          string `gorm:"primary_key;type:text;default:gen_random_uuid()" json:"ID"`
 	FirstName   string `json:"firstName"`
 	LastName    string `json:"lastName"`
 	CompanyName string `json:"companyName"`
@@ -18,5 +19,4 @@ type Address struct {
 	Phone2      string `json:"phone2"`
 	Email       string `json:"email"`
 	Web         string `json:"web"`
-	ID          string `gorm:"primary_key;type:text;default:gen_random_uuid()" json:"uuid"`
 }
