@@ -11,7 +11,7 @@ import (
 
 var env = make(map[string]string)
 
-//go:embed us-500.json
+//go:embed testdata/us-500.json
 var sampleData []byte
 
 func init() {
