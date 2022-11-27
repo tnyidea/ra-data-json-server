@@ -20,7 +20,8 @@ func (p *Handler) Update(c *gin.Context) {
 		return
 	}
 
-	tx := p.db.Model(&model.Address{}).Where("id = ?", c.Param("id")).Updates(&address)
+	tx := p.db.Model(&model.Address{}).
+		Where("id = ?", c.Param("id")).Updates(&address).First(&address)
 	if tx.Error != nil {
 		log.Println(tx.Error)
 
@@ -29,12 +30,6 @@ func (p *Handler) Update(c *gin.Context) {
 			return
 		}
 
-		c.AbortWithStatus(http.StatusInternalServerError)
-		return
-	}
-	tx = p.db.Model(&model.Address{}).Where("id = ?", c.Param("id")).Find(&address)
-	if tx.Error != nil {
-		log.Println(tx.Error)
 		c.AbortWithStatus(http.StatusInternalServerError)
 		return
 	}
