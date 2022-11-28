@@ -3,6 +3,7 @@ module github.com/tnyidea/ra-data-json-server/go
 go 1.19
 
 require (
+	github.com/gin-contrib/cors v1.4.0
 	github.com/gin-gonic/gin v1.8.1
 	github.com/tnyidea/typeutils v0.1.2
 	go.mongodb.org/mongo-driver v1.11.0
