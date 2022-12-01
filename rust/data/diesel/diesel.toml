@@ -1,0 +1,9 @@
+# For documentation on how to configure this file,
+# see https://diesel.rs/guides/configuring-diesel-cli
+
+[print_schema]
+file = "model/src/schema.rs"
+schema = "diesel_demo"
+
+[migrations_directory]
+dir = "migrations"
