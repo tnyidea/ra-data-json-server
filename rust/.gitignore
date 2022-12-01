@@ -14,4 +14,4 @@ Cargo.lock
 *.pdb
 
 # Diesel Generated Migrations
-migrations/
+**/diesel/migrations/
