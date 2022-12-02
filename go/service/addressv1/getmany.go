@@ -12,6 +12,16 @@ import (
 // http://localhost:8080/address?_end=10&_order=ASC&_sort=id&_start=0
 
 func (p *Handler) GetMany(c *gin.Context) {
+	if p.serviceDb == ServiceDbMongoDb {
+		p.mongodbGetMany(c)
+	}
+
+	if p.serviceDb == ServiceDbPostgres {
+		p.gormGetMany(c)
+	}
+}
+
+func (p *Handler) gormGetMany(c *gin.Context) {
 	// Determine if the request is one of:
 	// getList GET http://my.api.url/post?_sort=title&_order=ASC&_start=0&_end=24&title=bar
 	// getMany GET http://my.api.url/post?id=123&id=456&id=789
@@ -65,14 +75,14 @@ func (p *Handler) GetMany(c *gin.Context) {
 			}
 		}
 
-		sortExpression := p.db.Model(&model.Address{}).NamingStrategy.ColumnName("", urlQuerySortField)
+		sortExpression := p.gormDb.Model(&model.Address{}).NamingStrategy.ColumnName("", urlQuerySortField)
 		sortOrder := urlQuerySortOrder
 		querySortOrder = strings.Trim(sortExpression+" "+sortOrder, " ")
 	}
 
 	// Execute the Query
 	var addresses []model.Address
-	tx := p.db.Model(&model.Address{})
+	tx := p.gormDb.Model(&model.Address{})
 
 	if queryOffset != 0 {
 		tx = tx.Offset(int(queryOffset))
@@ -91,7 +101,7 @@ func (p *Handler) GetMany(c *gin.Context) {
 	}
 
 	var count int64
-	tx = p.db.Model(&model.Address{}).Count(&count)
+	tx = p.gormDb.Model(&model.Address{}).Count(&count)
 	if tx.Error != nil {
 		log.Println(tx.Error)
 		c.AbortWithStatus(http.StatusInternalServerError)
@@ -107,4 +117,8 @@ func (p *Handler) GetMany(c *gin.Context) {
 	c.Header("Content-Range", startString+"-"+endString+"/"+countString)
 	c.Header("X-Total-Count", countString)
 	c.JSON(http.StatusOK, addresses)
+}
+
+func (p *Handler) mongodbGetMany(c *gin.Context) {
+
 }

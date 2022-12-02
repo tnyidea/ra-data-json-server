@@ -12,7 +12,7 @@ func (p *Handler) GetOne(c *gin.Context) {
 	// GET http://my.api.url/post/123
 
 	var address model.Address
-	tx := p.db.Model(model.Address{}).Where("id = ?", c.Param("id")).First(&address)
+	tx := p.gormDb.Model(model.Address{}).Where("id = ?", c.Param("id")).First(&address)
 	if tx.Error != nil {
 		log.Println(tx.Error)
 

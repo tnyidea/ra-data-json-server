@@ -18,7 +18,7 @@ func (p *Handler) Create(c *gin.Context) {
 		return
 	}
 
-	tx := p.db.Model(&model.Address{}).Create(&address)
+	tx := p.gormDb.Model(&model.Address{}).Create(&address)
 	if tx.Error != nil {
 		log.Println(tx.Error)
 		c.AbortWithStatus(http.StatusInternalServerError)

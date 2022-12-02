@@ -20,7 +20,7 @@ func (p *Handler) Update(c *gin.Context) {
 		return
 	}
 
-	tx := p.db.Model(&model.Address{}).
+	tx := p.gormDb.Model(&model.Address{}).
 		Where("id = ?", c.Param("id")).Updates(&address).First(&address)
 	if tx.Error != nil {
 		log.Println(tx.Error)

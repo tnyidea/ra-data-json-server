@@ -4,16 +4,17 @@ import (
 	"context"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"strings"
 )
 
-func NewMongoDbClient(url string) (*mongo.Client, error) {
-	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(url))
+func NewMongoDbSession(url string) (*mongo.Database, error) {
+	client, err := mongo.Connect(context.Background(), options.Client().ApplyURI(url))
 	if err != nil {
 		return nil, err
 	}
-	defer func() {
-		_ = client.Disconnect(context.TODO())
-	}()
 
-	return client, nil
+	tokens := strings.Split(url, "/")
+	dbName := tokens[len(tokens)-1]
+
+	return client.Database(dbName), nil
 }

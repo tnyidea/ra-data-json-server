@@ -11,6 +11,8 @@ import (
 
 func main() {
 	env := map[string]string{
+		"DB_MODE":      os.Getenv("DB_MODE"),
+		"MONGODB_URL":  os.Getenv("MONGODB_URL"),
 		"POSTGRES_URL": os.Getenv("POSTGRES_URL"),
 	}
 	err := typeutils.MapNoEmptyValues(env)

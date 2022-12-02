@@ -1,7 +1,9 @@
 package model
 
 import (
+	"context"
 	_ "embed"
+	"encoding/json"
 	"github.com/tnyidea/typeutils"
 	"log"
 	"os"
@@ -26,7 +28,46 @@ func init() {
 func TestNewMongoDbClient(t *testing.T) {
 	url := env["MONGODB_URL"]
 
-	_, err := NewMongoDbClient(url)
+	db, err := NewMongoDbSession(url)
+	if err != nil {
+		log.Println(err)
+		t.FailNow()
+	}
+
+	err = db.Client().Ping(context.TODO(), nil)
+	if err != nil {
+		log.Println(err)
+		t.FailNow()
+	}
+}
+
+func TestLoadSampleData(t *testing.T) {
+	url := env["MONGODB_URL"]
+
+	db, err := NewMongoDbSession(url)
+	if err != nil {
+		log.Println(err)
+		t.FailNow()
+	}
+	defer func() {
+		_ = db.Client().Disconnect(context.Background())
+	}()
+
+	var addressList []interface{}
+	err = json.Unmarshal(sampleData, &addressList)
+	if err != nil {
+		log.Println(err)
+		t.FailNow()
+	}
+
+	// begin insertMany
+	collection := db.Collection("address")
+	err = collection.Drop(context.Background())
+	if err != nil {
+		log.Println(err)
+		t.FailNow()
+	}
+	_, err = collection.InsertMany(context.TODO(), addressList)
 	if err != nil {
 		log.Println(err)
 		t.FailNow()
