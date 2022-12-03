@@ -11,7 +11,7 @@ import (
 
 func main() {
 	env := map[string]string{
-		"DB_MODE":      os.Getenv("DB_MODE"),
+		"SERVICE_DB":   os.Getenv("SERVICE_DB"),
 		"MONGODB_URL":  os.Getenv("MONGODB_URL"),
 		"POSTGRES_URL": os.Getenv("POSTGRES_URL"),
 	}
@@ -22,9 +22,10 @@ func main() {
 
 	addressv1handler, err := addressv1.NewHandler(env)
 	if err != nil {
+		log.Println(err)
 		return
 	}
-
+	log.Println("here")
 	router := gin.Default()
 
 	corsConfig := cors.DefaultConfig()
