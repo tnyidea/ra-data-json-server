@@ -50,7 +50,7 @@ func TestLoadSampleData(t *testing.T) {
 		t.FailNow()
 	}
 	defer func() {
-		_ = db.Client().Disconnect(context.Background())
+		_ = db.Client().Disconnect(context.TODO())
 	}()
 
 	var addressList []interface{}
@@ -62,7 +62,7 @@ func TestLoadSampleData(t *testing.T) {
 
 	// begin insertMany
 	collection := db.Collection("address")
-	err = collection.Drop(context.Background())
+	err = collection.Drop(context.TODO())
 	if err != nil {
 		log.Println(err)
 		t.FailNow()

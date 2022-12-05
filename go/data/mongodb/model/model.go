@@ -8,7 +8,7 @@ import (
 )
 
 func NewMongoDbSession(url string) (*mongo.Database, error) {
-	client, err := mongo.Connect(context.Background(), options.Client().ApplyURI(url))
+	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(url))
 	if err != nil {
 		return nil, err
 	}

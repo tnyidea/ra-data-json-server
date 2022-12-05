@@ -1,25 +1,25 @@
 package model
 
 import (
-	"gorm.io/gorm"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"time"
 )
 
 type Address struct {
-	Id          string         `bson:"_id" json:"id"`
-	CreatedAt   time.Time      `bson:"createdAt" json:"createdAt"`
-	UpdatedAt   time.Time      `bson:"updatedAt" json:"updatedAt"`
-	DeletedAt   gorm.DeletedAt `bson:"deletedAt" json:"deletedAt"`
-	FirstName   string         `bson:"firstName" json:"firstName"`
-	LastName    string         `bson:"lastName" json:"lastName"`
-	CompanyName string         `bson:"companyName" json:"companyName"`
-	Address     string         `bson:"address" json:"address"`
-	City        string         `bson:"city" json:"city"`
-	County      string         `bson:"county" json:"county"`
-	State       string         `bson:"state" json:"state"`
-	Zip         string         `bson:"zip" json:"zip"`
-	Phone1      string         `bson:"phone1" json:"phone1"`
-	Phone2      string         `bson:"phone2" json:"phone2"`
-	Email       string         `bson:"email" json:"email"`
-	Web         string         `bson:"web" json:"web"`
+	Id          primitive.ObjectID `bson:"_id" json:"id"`
+	CreatedAt   time.Time          `bson:"createdAt,omitempty" json:"createdAt"`
+	UpdatedAt   time.Time          `bson:"updatedAt,omitempty" json:"updatedAt"`
+	DeletedAt   time.Time          `bson:"deletedAt,omitempty" json:"deletedAt"`
+	FirstName   string             `bson:"firstName,omitempty" json:"firstName"`
+	LastName    string             `bson:"lastName,omitempty" json:"lastName"`
+	CompanyName string             `bson:"companyName,omitempty" json:"companyName"`
+	Address     string             `bson:"address,omitempty" json:"address"`
+	City        string             `bson:"city,omitempty" json:"city"`
+	County      string             `bson:"county,omitempty" json:"county"`
+	State       string             `bson:"state,omitempty" json:"state"`
+	Zip         string             `bson:"zip,omitempty" json:"zip"`
+	Phone1      string             `bson:"phone1,omitempty" json:"phone1"`
+	Phone2      string             `bson:"phone2,omitempty" json:"phone2"`
+	Email       string             `bson:"email,omitempty" json:"email"`
+	Web         string             `bson:"web,omitempty" json:"web"`
 }

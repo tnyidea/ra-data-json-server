@@ -18,10 +18,12 @@ import (
 func (p *Handler) GetMany(c *gin.Context) {
 	if p.serviceDb == ServiceDbMongoDb {
 		p.mongodbGetMany(c)
+		return
 	}
 
 	if p.serviceDb == ServiceDbPostgres {
 		p.gormGetMany(c)
+		return
 	}
 }
 
@@ -184,7 +186,6 @@ func (p *Handler) mongodbGetMany(c *gin.Context) {
 	// Execute the Query
 	collection := p.mongoDb.Collection("address")
 
-	//findOptions := options.Find().SetSort(bson.D{{"rating", -1}}).SetLimit(2).SetSkip(1)
 	findOptions := options.Find()
 	if querySortField != "" {
 		findOptions = findOptions.SetSort(bson.D{{querySortField, querySortOrder}})
@@ -197,20 +198,20 @@ func (p *Handler) mongodbGetMany(c *gin.Context) {
 	}
 
 	var addresses []mongomodel.Address
-	cursor, err := collection.Find(context.Background(), bson.D{}, findOptions)
+	cursor, err := collection.Find(context.TODO(), bson.D{}, findOptions)
 	if err != nil {
 		log.Println(err)
 		c.AbortWithStatus(http.StatusInternalServerError)
 		return
 	}
-	err = cursor.All(context.Background(), &addresses)
+	err = cursor.All(context.TODO(), &addresses)
 	if err != nil {
 		log.Println(err)
 		c.AbortWithStatus(http.StatusInternalServerError)
 		return
 	}
 
-	count, err := collection.CountDocuments(context.Background(), bson.D{})
+	count, err := collection.CountDocuments(context.TODO(), bson.D{})
 	if err != nil {
 		log.Println(err)
 		c.AbortWithStatus(http.StatusInternalServerError)
